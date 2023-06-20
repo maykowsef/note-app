@@ -29,7 +29,7 @@ app.use(express.json());
 const connection = mysql.createConnection({
   host: 'sql7.freesqldatabase.com',
   user: 'sql7627513',
-  password: 'NYDUXtlmxS',
+  password: process.env.DB_PASSWORD,
   database: 'sql7627513',
 });
 
