@@ -3,11 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
-    "@fontsource/kenia": "^4.5.9",
-    "@google-cloud/text-to-speech": "^4.2.2",
-    "@material/checkbox": "^14.0.0",
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.8",
     "@reduxjs/toolkit": "^1.9.5",
@@ -45,8 +40,6 @@
     "redux": "^4.2.1",
     "socket.io-client": "^4.6.2",
     "web-vitals": "^2.1.4",
-    "word-generator": "^0.0.2",
-    "ytdl-core": "^4.11.4",
     "zxcvbn": "^4.4.2"
   },
   "scripts": {
