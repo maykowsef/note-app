@@ -12,7 +12,8 @@ const LoginSignUp = () => {
     setIsLogin(!isLogin);
   };
 
-
+  const url="https://noto-appo.onrender.com"
+  // url="http://localhost:3000/"
 
   const token = localStorage.getItem('token');
   const authenticated = token !== null;
@@ -36,7 +37,7 @@ console.log("heufjerkgf")
       console.log('Password:', password);
 
       try {
-        const response = await fetch('https://noto-appo.onrender.com/login', {
+        const response = await fetch(`${url}/login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -69,7 +70,7 @@ console.log("heufjerkgf")
 
 
       try {
-        const response = await fetch('https://noto-appo.onrender.com/signup', {
+        const response = await fetch(`${url}/signup`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

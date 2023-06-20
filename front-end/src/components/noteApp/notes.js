@@ -49,8 +49,10 @@ setUn(decodedToken.userName)
     }
   }, [id]);
 
+ const url="https://noto-appo.onrender.com"
+  // url="http://localhost:3000/"
   const fetchNotes = () => {
-    fetch(`https://noto-appo.onrender.com/notes/${id}`)
+      fetch(`${url}/notes/${id}`)
       .then((response) => response.json())
       .then((data) => setNotes(data))
       .catch((error) => console.error('Error fetching notes:', error));
@@ -77,7 +79,7 @@ setUn(decodedToken.userName)
   };
 
   const handleDeleteNote = (noteId) => {
-    fetch(`https://noto-appo.onrender.com/notes/${noteId}/${id}`, {
+    fetch(`${url}/notes/${noteId}/${id}`, {
       method: 'DELETE',
     })
       .then(() => {
@@ -108,7 +110,7 @@ setUn(decodedToken.userName)
     const { title, content } = newNote;
 
     if (selectedNote) {
-      fetch(`https://noto-appo.onrender.com/notes/${selectedNote.note_id}/${id}`, {
+      fetch(`${url}/notes/${selectedNote.note_id}/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -124,7 +126,7 @@ setUn(decodedToken.userName)
         })
         .catch((error) => console.error('Error updating note:', error));
     } else {
-      fetch(`https://noto-appo.onrender.com/notes/${id}`, {
+      fetch(`${url}/notes/${id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
