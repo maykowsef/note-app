@@ -55,8 +55,8 @@ const noteapp = require('./Public/noteappbackend');
 app.use('/', noteapp);
 
 
-const chat = require('./Public/chat');
-app.use('/', chat);
+// const chat = require('./Public/chat');
+// app.use('/', chat);
 
 
 
