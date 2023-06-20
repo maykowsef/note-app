@@ -11,22 +11,7 @@ body {
     height: 100vh;
     width: 100vw;
     overflow: hidden;
-    animation: animatedBackground 10s linear infinite;
-  }
 
-
-  /* Define the keyframes for the animation */
-/* Define the keyframes for the animation */
-@keyframes animatedBackground {
-    0% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.5;
-    }
-    100% {
-      opacity: 1;
-    }
   }
 
 
