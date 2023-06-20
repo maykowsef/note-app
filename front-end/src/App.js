@@ -11,7 +11,7 @@ import NoteApp from './components/noteApp/noteApp.js'
 // import jwt_decode from 'jwt-decode';
 import "./App.css"
 function App() {
-   const  ytbapi="AIzaSyD-TaFjI0WNb32yTDj9pO7i8x78IgXL19I"
+  //  const  ytbapi="AIzaSyD-TaFjI0WNb32yTDj9pO7i8x78IgXL19I"
   return (
     <div className='App'>
 
