@@ -163,7 +163,7 @@ router.post('/notes/:user_id', (req, res) => {
   const { title, content } = req.body;
 
   connection.query(
-    'INSERT INTO note (title, content, user_id) VALUES (?, ?, ?)',
+    'INSERT INTO note (title, content, user_id ,modified_at ) VALUES (?, ?, ?,CURRENT_TIMESTAMP)',
     [title, content, userId],
     (err, results) => {
       if (err) {
