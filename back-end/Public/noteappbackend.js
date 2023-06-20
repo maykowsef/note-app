@@ -60,7 +60,7 @@ router.post('/login', (req, res) => {
 // Sign-up route
 router.post('/signup', (req, res) => {
   const { username, password } = req.body;
-
+console.log(username,password)
   // Check if the username already exists in the database
   connection.query(
     'SELECT * FROM user WHERE username = ?',
