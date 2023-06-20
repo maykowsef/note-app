@@ -1,10 +1,3 @@
-
-
-
-
-
-
-
 const express = require('express');
 const router = express.Router();
 const connection = require('../server');
@@ -14,7 +7,7 @@ const port = 3001;
 
 const { Configuration, OpenAIApi } = require("openai");
 const config = new Configuration({
-  apiKey: "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"
+  apiKey: ""
   });
 
 const openai = new OpenAIApi(config);
