@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSpeechSynthesis } from 'react-speech-kit';
+
 import ReactPlayer from 'react-player';
 const TextToSpeech = () => {
   const [text, setText] = useState('');
