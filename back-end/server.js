@@ -31,6 +31,7 @@ const connection = mysql.createConnection({
   user: 'sql7627513',
   password: process.env.DB_PASSWORD,
   database: 'sql7627513',
+  connectTimeout: 15000
 });
 
 
