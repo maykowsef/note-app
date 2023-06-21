@@ -10,10 +10,6 @@ const crypto = require('crypto');
 const secretKey = process.env.secret_key;
 const IV_LENGTH = 16;
 
-console.log(algorithm)
-
-console.log(encryptionKey)
-
 
 // Login route
 router.post('/login', (req, res) => {
