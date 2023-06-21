@@ -8,7 +8,7 @@ const crypto = require('crypto');
 
 // Secret key used for signing and verifying tokens
 const secretKey = process.env.secret_key;
-
+const IV = "5183666c72eec9e4";
 const algorithm = process.env.algorithm;
 console.log(algorithm)
 const encryptionKey = process.env.ENCRYPTION_KEY;
@@ -157,11 +157,16 @@ router.get('/notes/:user_id', (req, res) => {
        console.log(results)
       // Decrypt the note content before sending it in the response
       const decryptedResults = results.map((result) => {
-        const decipher = crypto.createDecipher(algorithm, encryptionKey);
-        console.log(" decipher "+decipher)
-        console.log(decipher)
-        let decryptedContent = decipher.update(result.content, 'hex', 'utf8');
+
+        let decipher = crypto.createDecipheriv(algorithm,  encryptionKey, IV);
+        let decryptedContent= decipher.update(text, 'base64', 'utf8');
         decryptedContent += decipher.final('utf8');
+
+        // const decipher = crypto.createDecipher(algorithm, encryptionKey);
+        // console.log(" decipher "+decipher)
+        // console.log(decipher)
+        // let decryptedContent = decipher.update(result.content, 'hex', 'utf8');
+        // decryptedContent += decipher.final('utf8');
         return { ...result, content: decryptedContent };
       });
 
@@ -175,9 +180,14 @@ router.post('/notes/:user_id', (req, res) => {
   const { title, content } = req.body;
 
   // Encrypt the note content before storing it in the database
-  const cipher = crypto.createCipher(algorithm, encryptionKey);
-  let encryptedContent = cipher.update(content, 'utf8', 'hex');
-  encryptedContent += cipher.final('hex');
+  const cipher = crypto.createCipheriv(algorithm, encryptionKey, IV);
+  // const cipher = crypto.createCipher(algorithm, encryptionKey);
+
+  let encryptedContent = cipher.update(text, 'utf8', 'base64');
+  encryptedContent += cipher.final('base64');
+
+  // let encryptedContent = cipher.update(content, 'utf8', 'hex');
+  // encryptedContent += cipher.final('hex');
 
   connection.query(
     'INSERT INTO note (title, content, user_id, modified_at) VALUES (?, ?, ?, CURRENT_TIMESTAMP)',
