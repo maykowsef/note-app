@@ -16,16 +16,30 @@ body {
 
 
 
-.form
-
-{
+  .form {
     width: auto;
     height: fit-content;
     background: rgba(255, 255, 255, 0.1);
     box-shadow: 1px 5px 14px rgba(0, 0, 0, 0.25);
     margin: auto auto;
     padding: 42px;
-}
+    transition: box-shadow 0.5s ease;
+    animation: blurAnimation 2s infinite;
+  }
+
+
+  @keyframes blurAnimation {
+    0% {
+      box-shadow: 1px 5px 14px rgba(0, 0, 0, 0.25);
+    }
+    50% {
+      box-shadow: 1px 5px 40px rgba(0, 0, 0, 0.5);
+    }
+    100% {
+      box-shadow: 1px 5px 14px rgba(0, 0, 0, 0.25);
+    }
+  }
+
 .noteApp{
     display: flex;
     align-content: center;

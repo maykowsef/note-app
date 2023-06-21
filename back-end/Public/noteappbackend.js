@@ -65,17 +65,20 @@ router.post('/signup', (req, res) => {
       if (err) {
         console.error('Error executing MySQL query:', err);
         res.status(500).json({ error: 'Internal Server Error' });
+        console.log("mysql prob")
         return;
       }
 
       if (results.length > 0) {
         // Username already exists, return error response
         res.status(409);
+        console.log("username already exists")
       } else {
         // Hash the password before storing it in the database
         bcrypt.hash(password, 10, (err, hashedPassword) => {
           if (err) {
             console.error('Error hashing password:', err);
+
             res.status(500).json({ error: 'Internal Server Error' });
             return;
           }
@@ -88,10 +91,12 @@ router.post('/signup', (req, res) => {
               if (err) {
                 console.error('Error executing MySQL query:', err);
                 res.status(500).json({ error: 'Internal Server Error' });
+                console.log("mysql prob 2")
                 return;
               }
 
               // User registration successful
+              console.log("sign up okay ")
               res.status(200).json({ message: 'Sign up successful' });
             }
           );
