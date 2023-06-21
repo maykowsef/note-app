@@ -154,7 +154,7 @@ router.get('/notes/:user_id', (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
         return;
       }
-
+       console.log(results)
       // Decrypt the note content before sending it in the response
       const decryptedResults = results.map((result) => {
         const decipher = crypto.createDecipher(algorithm, encryptionKey);
