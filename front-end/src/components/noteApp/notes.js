@@ -6,7 +6,7 @@ import { Delete } from '@mui/icons-material';
 import { Edit } from '@mui/icons-material';
 import { Add } from '@mui/icons-material';
 
-
+import empty from "./empty.png"
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -185,6 +185,7 @@ setUn(decodedToken.userName)
 
   return (
     <>
+
     <div className='note-dashboard'>
 
 
@@ -196,26 +197,24 @@ setUn(decodedToken.userName)
          </div>
        </div>
        <div className='notes-container'>
-      {notes.map((note) => (
-        <div key={note.note_id} className="note-box">
-          <div className='note-title'>🦄 {formatContent(note.title)} 🦄</div>
-           <div className='note-content'>{formatContent(note.content)}</div>
+  {notes.length === 0 ? (
+    <img src={empty} alt="Empty" />
+  ) : (
+    notes.map((note) => (
+      <div key={note.note_id} className="note-box">
+        <div className='note-title'>🦄 {formatContent(note.title)} 🦄</div>
+        <div className='note-content'>{formatContent(note.content)}</div>
 
-          <div className='edit-delete-container'>
-            <Edit  onClick={() => handleEditNote(note)}/>
-            <div className='note-date'>Last modified at :<br/> {formatDate(note.modified_at)}</div>
-
-            <Delete onClick={()=>{setIsDeleteDialogOpen(true);setSelectedNote(note.note_id)}}/>
-
-
-            </div>
+        <div className='edit-delete-container'>
+          <Edit onClick={() => handleEditNote(note)} />
+          <div className='note-date'>Last modified at:<br/>{formatDate(note.modified_at)}</div>
+          <Delete onClick={() => { setIsDeleteDialogOpen(true); setSelectedNote(note.note_id) }} />
         </div>
-
-
-      ))}
-
-
+      </div>
+    ))
+  )}
 </div>
+
 
 <div className='add-note' onClick={handleAddNote}>
 <div>

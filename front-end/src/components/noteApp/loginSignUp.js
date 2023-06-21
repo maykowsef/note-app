@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+
 import './lsu.css'
 const LoginSignUp = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -99,6 +100,7 @@ console.log("heufjerkgf")
   };
 
   return (
+
     <div className='form'>
       <div className='authent'>{isLogin ? 'Sign in' : 'Sign up'}</div>
       <form >
