@@ -164,7 +164,7 @@ router.get('/notes/:user_id', (req, res) => {
    console.log("ojfijr")
    console.log(result.content)
 
-        let decipher = crypto.createDecipheriv(algorithm,  encryptionKey, Buffer.from(IV, 'hex'));
+        let decipher = crypto.createDecipheriv(algorithm,  encryptionKey, IV);
         console.log(decipher)
         let decryptedContent= decipher.update(result.content, 'hex', 'utf8');
         decryptedContent += decipher.final('utf8');
