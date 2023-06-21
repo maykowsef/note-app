@@ -41,6 +41,9 @@ function Notes() {
 setUn(decodedToken.userName)
       setId(decodedToken.userId);
     }
+    else{
+      navigate("/login")
+    }
   }, [authenticated, token]);
 
   useEffect(() => {

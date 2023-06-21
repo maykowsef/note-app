@@ -21,12 +21,12 @@ const LoginSignUp = () => {
 
   useEffect(() => {
     if (authenticated) {
-console.log("heufjerkgf")
+      navigate("/notes")
     }
 
 
 
-  }, [token]);
+  }, [authenticated,token]);
 
 
   const handleSubmit = async (e) => {
