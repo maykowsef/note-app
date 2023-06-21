@@ -74,7 +74,7 @@ router.post('/signup', (req, res) => {
 
       if (results.length > 0) {
         // Username already exists, return error response
-        res.status(409).json({ error: 'Email already exists' });
+        res.status(409);
       } else {
         // Hash the password before storing it in the database
         bcrypt.hash(password, 10, (err, hashedPassword) => {
