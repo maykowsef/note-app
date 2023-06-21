@@ -179,10 +179,10 @@ router.get('/notes/:user_id', (req, res) => {
 router.post('/notes/:user_id', (req, res) => {
   const userId = req.params.user_id;
   const { title, content } = req.body;
-
+console.log("mdmklfierjgnve post")
   // Encrypt the note content before storing it in the database
   console.log("in post"+IV)
-  const cipher = crypto.createCipheriv(algorithm, encryptionKey,IV );
+  const cipher = crypto.createCipheriv(algorithm,  encryptionKey,IV);
   // const cipher = crypto.createCipher(algorithm, encryptionKey);
 
   let encryptedContent = cipher.update(content, 'utf8', 'base64');
