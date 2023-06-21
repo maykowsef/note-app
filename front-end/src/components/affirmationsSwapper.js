@@ -17,7 +17,7 @@ let   message=""
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': 'Bearer sk-ZpVkqNR2CELAcOwT­phihT3BlbkFJyNOsoGF7­uwm0S7h80gdU', // Replace 'yourAuthToken' with the actual authentication token
+              'Authorization': 'Bearer ..', // Replace 'yourAuthToken' with the actual authentication token
             },
             body: JSON.stringify({ prompt: message }),
           });

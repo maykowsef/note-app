@@ -154,13 +154,18 @@ animation: glassEffect 3s infinite , noteAppear 1.5s forwards;
 }
 
 .add-note{
-    margin-top: 20px;
+    /* margin-top: 20px; */
     display: flex;
     align-content: center;
     justify-content: center;
     align-items: center;
     flex-direction: row;
     cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    /* margin: auto; */
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .add-note div{

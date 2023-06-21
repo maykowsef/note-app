@@ -56,11 +56,11 @@ router.post('/login', (req, res) => {
     }
   );
 });
-
 // Sign-up route
 router.post('/signup', (req, res) => {
   const { username, password } = req.body;
-console.log(username,password)
+  console.log(username, password);
+
   // Check if the username already exists in the database
   connection.query(
     'SELECT * FROM user WHERE username = ?',
@@ -74,7 +74,7 @@ console.log(username,password)
 
       if (results.length > 0) {
         // Username already exists, return error response
-        res.status(409).json({ error: 'Username already taken' });
+        res.status(409).json({ error: 'Email already exists' });
       } else {
         // Hash the password before storing it in the database
         bcrypt.hash(password, 10, (err, hashedPassword) => {

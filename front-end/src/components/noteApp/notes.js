@@ -50,7 +50,7 @@ setUn(decodedToken.userName)
   }, [id]);
 
  const url="https://noto-appo.onrender.com"
-  // url="http://localhost:3000/"
+  //   const url="http://localhost:3000/"
   const fetchNotes = () => {
       fetch(`${url}/notes/${id}`)
       .then((response) => response.json())

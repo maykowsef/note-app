@@ -13,7 +13,7 @@ const LoginSignUp = () => {
   };
 
   const url="https://noto-appo.onrender.com"
-  // url="http://localhost:3000/"
+  //  const url="http://localhost:3000/"
 
   const token = localStorage.getItem('token');
   const authenticated = token !== null;
