@@ -82,9 +82,11 @@ console.log("heufjerkgf")
           // Sign up successful
           alert('Sign up successful');
           // Perform any necessary actions after successful sign up
+          console.log(response)
         } else {
           // Sign up failed
           alert('Sign up failed');
+          console.log(response)
           // Handle sign-up failure, display error message, etc.
         }
       } catch (error) {
