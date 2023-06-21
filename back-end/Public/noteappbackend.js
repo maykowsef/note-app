@@ -158,7 +158,7 @@ router.get('/notes/:user_id', (req, res) => {
       // Decrypt the note content before sending it in the response
       const decryptedResults = results.map((result) => {
 
-        let decipher = crypto.createDecipheriv(algorithm,  encryptionKey, IV);
+        let decipher = crypto.createDecipheriv(algorithm,  encryptionKey, 16);
         let decryptedContent= decipher.update(text, 'base64', 'utf8');
         decryptedContent += decipher.final('utf8');
 
@@ -180,7 +180,7 @@ router.post('/notes/:user_id', (req, res) => {
   const { title, content } = req.body;
 
   // Encrypt the note content before storing it in the database
-  const cipher = crypto.createCipheriv(algorithm, encryptionKey, IV);
+  const cipher = crypto.createCipheriv(algorithm, encryptionKey, 16);
   // const cipher = crypto.createCipher(algorithm, encryptionKey);
 
   let encryptedContent = cipher.update(text, 'utf8', 'base64');
