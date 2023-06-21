@@ -9,7 +9,7 @@ const crypto = require('crypto');
 // Secret key used for signing and verifying tokens
 const secretKey = process.env.secret_key;
 
-const algorithm = process.env.algortihm;
+const algorithm = process.env.algorithm;
 const encryptionKey = process.env.ENCRYPTION_KEY;
 
 
