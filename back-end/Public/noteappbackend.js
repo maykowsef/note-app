@@ -164,9 +164,9 @@ router.get('/notes/:user_id', (req, res) => {
    console.log("ojfijr")
    console.log(result.content)
 
-        let decipher = crypto.createDecipheriv(algorithm,  encryptionKey, Buffer.from(IV, 'base64'));
+        let decipher = crypto.createDecipheriv(algorithm,  encryptionKey, Buffer.from(IV, 'hex'));
         console.log(decipher)
-        let decryptedContent= decipher.update(result.content, 'base64', 'utf8');
+        let decryptedContent= decipher.update(result.content, 'hex', 'utf8');
         decryptedContent += decipher.final('utf8');
         console.log(decryptedContent)
         // const decipher = crypto.createDecipher(algorithm, encryptionKey);
@@ -191,8 +191,8 @@ console.log("mdmklfierjgnve post")
   const cipher = crypto.createCipheriv(algorithm,  encryptionKey,IV);
   // const cipher = crypto.createCipher(algorithm, encryptionKey);
 
-  let encryptedContent = cipher.update(content, 'utf8', 'base64');
-  encryptedContent += cipher.final('base64');
+  let encryptedContent = cipher.update(content, 'utf8', 'hex');
+  encryptedContent += cipher.final('hex');
 
   // let encryptedContent = cipher.update(content, 'utf8', 'hex');
   // encryptedContent += cipher.final('hex');
