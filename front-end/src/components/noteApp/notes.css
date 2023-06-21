@@ -10,15 +10,17 @@ padding: 15px;
 
 }
 .user{
-  background-color: black;
+  background-color: #1c5d6c;
   color: white;
   display: flex;
   padding: 5px;
+  padding-left: 10px;
   border-radius: 10px;
-  gap:10px;
+  gap: 10px;
   margin-bottom: 10px;
-font-weight: bold;
-font-size: 20px;
+  font-weight: bold;
+  font-size: 20px;
+
 }
 .user svg{
   cursor: pointer;
@@ -169,18 +171,22 @@ animation: glassEffect 3s infinite , noteAppear 1.5s forwards;
 }
 
 .add-note div{
-    width: fit-content;
-    background-color: rgb(31, 4, 40);
-    color: rgb(254, 97, 168);
-    padding:8px;
-padding-left: 10px;
-padding-right:10px ;
-font-size: 20px;
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
+
+
+  width: fit-content;
+  background: linear-gradient(45deg, #2d0134, #1b2d54);
+  font-family: cursive;
+  color: rgb(220 223 110);
+  padding: 8px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 20px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+
 }
 
   .popup {
@@ -203,7 +209,7 @@ font-size: 20px;
     border: solid;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 
-    animation: noteAppear 0.5s forwards;
+    animation: noteAppear 0.2s forwards;
   }
 
   @keyframes noteAppear {

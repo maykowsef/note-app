@@ -6,7 +6,7 @@ import Notes from './notes'
 function NoteApp() {
   return (
     <div className='noteApp'>
-      {/* <LoginSignUp/> */}
+
 <Routes>
 <Route path="/" element={<LoginSignUp />} index >
          </Route>
