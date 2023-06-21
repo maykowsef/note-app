@@ -159,7 +159,7 @@ router.get('/notes/:user_id', (req, res) => {
       const decryptedResults = results.map((result) => {
 
         let decipher = crypto.createDecipheriv(algorithm,  encryptionKey,Buffer.from(result.iv, 'hex'));
-        let decryptedContent= decipher.update(text, 'base64', 'utf8');
+        let decryptedContent= decipher.update(result.content, 'base64', 'utf8');
         decryptedContent += decipher.final('utf8');
 
         // const decipher = crypto.createDecipher(algorithm, encryptionKey);
