@@ -9,6 +9,7 @@ const crypto = require('crypto');
 // Secret key used for signing and verifying tokens
 const secretKey = process.env.secret_key;
 const IV_LENGTH = 16;
+const IV = "0f6e4df078496553"
 const algorithm = process.env.algorithm;
 console.log(algorithm)
 const encryptionKey = process.env.ENCRYPTION_KEY;
@@ -158,7 +159,7 @@ router.get('/notes/:user_id', (req, res) => {
       // Decrypt the note content before sending it in the response
       const decryptedResults = results.map((result) => {
 
-        let decipher = crypto.createDecipheriv(algorithm,  encryptionKey,Buffer.from(result.iv, 'hex'));
+        let decipher = crypto.createDecipheriv(algorithm,  encryptionKey,Buffer.from(IV, 'hex'));
         let decryptedContent= decipher.update(result.content, 'base64', 'utf8');
         decryptedContent += decipher.final('utf8');
 
@@ -180,7 +181,7 @@ router.post('/notes/:user_id', (req, res) => {
   const { title, content } = req.body;
 
   // Encrypt the note content before storing it in the database
-  const IV = crypto.randomBytes(IV_LENGTH);
+
   const cipher = crypto.createCipheriv(algorithm, encryptionKey,IV );
   // const cipher = crypto.createCipher(algorithm, encryptionKey);
 
