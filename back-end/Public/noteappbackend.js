@@ -4,10 +4,15 @@ const connection = require('../server');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+const crypto = require('crypto');
 
 // Secret key used for signing and verifying tokens
 const secretKey = process.env.secret_key;
+
+const algorithm = process.env.algortihm;
+const encryptionKey = process.env.ENCRYPTION_KEY;
+
+
 
 // Login route
 router.post('/login', (req, res) => {
@@ -137,35 +142,43 @@ router.get('/protected', verifyToken, (req, res) => {
 
 
 router.get('/notes/:user_id', (req, res) => {
-  const userId = req.params.user_id; // Access the user ID from req.params.user_id
+  const userId = req.params.user_id;
 
-
- console.log(userId)
   connection.query(
     'SELECT * FROM note WHERE user_id = ?  ORDER BY modified_at DESC',
     [userId],
     (err, results) => {
-      console.log(results)
       if (err) {
         console.error('Error executing MySQL query:', err);
         res.status(500).json({ error: 'Internal Server Error' });
         return;
       }
 
-      res.status(200).json(results);
+      // Decrypt the note content before sending it in the response
+      const decryptedResults = results.map((result) => {
+        const decipher = crypto.createDecipher(algorithm, encryptionKey);
+        let decryptedContent = decipher.update(result.content, 'hex', 'utf8');
+        decryptedContent += decipher.final('utf8');
+        return { ...result, content: decryptedContent };
+      });
+
+      res.status(200).json(decryptedResults);
     }
   );
 });
-
-
 
 router.post('/notes/:user_id', (req, res) => {
   const userId = req.params.user_id;
   const { title, content } = req.body;
 
+  // Encrypt the note content before storing it in the database
+  const cipher = crypto.createCipher(algorithm, encryptionKey);
+  let encryptedContent = cipher.update(content, 'utf8', 'hex');
+  encryptedContent += cipher.final('hex');
+
   connection.query(
-    'INSERT INTO note (title, content, user_id ,modified_at ) VALUES (?, ?, ?,CURRENT_TIMESTAMP)',
-    [title, content, userId],
+    'INSERT INTO note (title, content, user_id, modified_at) VALUES (?, ?, ?, CURRENT_TIMESTAMP)',
+    [title, encryptedContent, userId],
     (err, results) => {
       if (err) {
         console.error('Error executing MySQL query:', err);
@@ -178,7 +191,8 @@ router.post('/notes/:user_id', (req, res) => {
   );
 });
 
-// ...
+
+
 
 router.delete('/notes/:note_id/:user_id', (req, res) => {
   console.log('delete')
