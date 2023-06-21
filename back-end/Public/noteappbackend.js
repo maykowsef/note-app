@@ -11,9 +11,10 @@ const secretKey = process.env.secret_key;
 const IV_LENGTH = 16;
 const IV = "0f6e4df078496553"
 const algorithm = process.env.algorithm;
-console.log(algorithm)
 const encryptionKey = process.env.ENCRYPTION_KEY;
-console.log(encryptionKey)
+
+
+
 
 
 // Login route
@@ -167,7 +168,7 @@ router.get('/notes/:user_id', (req, res) => {
         console.log(decipher)
         let decryptedContent= decipher.update(result.content, 'base64', 'utf8');
         decryptedContent += decipher.final('utf8');
-
+        console.log(decryptedContent)
         // const decipher = crypto.createDecipher(algorithm, encryptionKey);
         // console.log(" decipher "+decipher)
         // console.log(decipher)
