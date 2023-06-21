@@ -184,7 +184,7 @@ router.post('/notes/:user_id', (req, res) => {
   const cipher = crypto.createCipheriv(algorithm, encryptionKey,IV );
   // const cipher = crypto.createCipher(algorithm, encryptionKey);
 
-  let encryptedContent = cipher.update(text, 'utf8', 'base64');
+  let encryptedContent = cipher.update(content, 'utf8', 'base64');
   encryptedContent += cipher.final('base64');
 
   // let encryptedContent = cipher.update(content, 'utf8', 'hex');
