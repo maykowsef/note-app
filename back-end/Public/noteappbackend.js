@@ -10,8 +10,9 @@ const crypto = require('crypto');
 const secretKey = process.env.secret_key;
 
 const algorithm = process.env.algorithm;
+console.log(algorithm)
 const encryptionKey = process.env.ENCRYPTION_KEY;
-
+console.log(encryptionKey)
 
 
 // Login route
