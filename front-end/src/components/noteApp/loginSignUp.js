@@ -83,14 +83,17 @@ const LoginSignUp = () => {
           // Sign up successful
           alert('Sign up successful');
           // Perform any necessary actions after successful sign up
+        } else {
+          const data = await response.json(); // Parse the response JSON
+          const { error } = data; // Extract the error message from the response
 
-        } else if(response.status === 409) {
-              alert('Email already exists')
-        }
-         else  {
-          alert('Sign up failed');
-
-          // Handle sign-up failure, display error message, etc.
+          if (error === 'username already exists') {
+            // Username already exists, display appropriate message
+            alert('Username already exists');
+          } else {
+            // Sign up failed
+            alert('Sign up failed');
+          }
         }
       } catch (error) {
         console.error('Error:', error);

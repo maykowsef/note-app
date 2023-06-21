@@ -76,7 +76,7 @@ router.post('/signup', (req, res) => {
 
       if (results.length > 0) {
         // Username already exists, return error response
-        res.status(409);
+        res.status(409).json({ error: 'username already exist' });
         console.log("username already exists")
       } else {
         // Hash the password before storing it in the database
