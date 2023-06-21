@@ -1,14 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const connection = require('../server');
-
-const mysql = require('mysql');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const bodyParser = require('body-parser');
-const fs = require('fs');
-const app = express();
+
 
 // Secret key used for signing and verifying tokens
 const secretKey = 'your-secret-key';
