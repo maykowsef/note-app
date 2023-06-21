@@ -157,7 +157,8 @@ router.get('/notes/:user_id', (req, res) => {
       }
        console.log(results)
       // Decrypt the note content before sending it in the response
-      const decryptedResults = results.map((result) => {
+      if (results.length!==0)
+     { const decryptedResults = results.map((result) => {
    console.log("in get"+IV)
         let decipher = crypto.createDecipheriv(algorithm,  encryptionKey,IV);
         let decryptedContent= decipher.update(result.content, 'base64', 'utf8');
@@ -172,7 +173,7 @@ router.get('/notes/:user_id', (req, res) => {
       });
 
       res.status(200).json(decryptedResults);
-    }
+    }}
   );
 });
 
