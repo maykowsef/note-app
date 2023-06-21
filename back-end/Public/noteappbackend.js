@@ -9,10 +9,9 @@ const crypto = require('crypto');
 // Secret key used for signing and verifying tokens
 const secretKey = process.env.secret_key;
 const IV_LENGTH = 16;
-const IV = "0f6e4df078496553"
-const algorithm = process.env.algorithm;
+
 console.log(algorithm)
-const encryptionKey = process.env.ENCRYPTION_KEY;
+
 console.log(encryptionKey)
 
 
@@ -145,7 +144,9 @@ router.get('/protected', verifyToken, (req, res) => {
 
 router.get('/notes/:user_id', (req, res) => {
   const userId = req.params.user_id;
-
+  const IV = "0f6e4df078496553"
+  const algorithm = process.env.algorithm;
+  const encryptionKey = process.env.ENCRYPTION_KEY;
   connection.query(
     'SELECT * FROM note WHERE user_id = ?  ORDER BY modified_at DESC',
     [userId],
@@ -180,6 +181,12 @@ router.get('/notes/:user_id', (req, res) => {
 router.post('/notes/:user_id', (req, res) => {
   const userId = req.params.user_id;
   const { title, content } = req.body;
+
+  const IV = "0f6e4df078496553"
+const algorithm = process.env.algorithm;
+const encryptionKey = process.env.ENCRYPTION_KEY;
+
+
 console.log("mdmklfierjgnve post")
   // Encrypt the note content before storing it in the database
   console.log("in post"+IV)
