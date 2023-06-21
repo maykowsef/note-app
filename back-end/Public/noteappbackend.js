@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 
 
 // Secret key used for signing and verifying tokens
-const secretKey = 'your-secret-key';
+const secretKey = process.env.secret_key;
 
 // Login route
 router.post('/login', (req, res) => {
