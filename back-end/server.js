@@ -12,28 +12,33 @@ app.use(express.json());
 const { MongoClient } = require('mongodb');
 const uri = process.env.MONGO_URL; // Replace with your MongoDB connection string
 const dbName = process.env.DB_NAME; // Replace with your database name
+const clName= "note-app-clc";
 
-async function connectToMongoDB() {
-  const client = new MongoClient(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-  try {
-    await client.connect();
-    const db = client.db(dbName);
-    module.exports = db;
-    console.log('Connected to MongoDB');
-
-    app.listen(3002, () => {
-      console.log('Example app listening on port 3001');
-    });
-  } catch (error) {
-    console.error('Error connecting to the database:', error);
+client.connect(err => {
+  if (err) {
+    console.error('Error connecting to MongoDB Atlas:', err);
+    return;
   }
-}
 
-connectToMongoDB();
+  // Perform operations on the connected cluster
+  const collection = client.db(dbName).collection(clName);
+
+  // Example: Insert a document
+  collection.insertOne({ name: 'John Doe', age: 30 }, (err, result) => {
+    if (err) {
+      console.error('Error inserting document:', err);
+      return;
+    }
+
+    console.log('Document inserted:', result.insertedCount);
+
+    // Close the connection
+    client.close();
+  });
+});
+
 
 // const connection = mysql.createConnection({
 //   host: 'localhost',
