@@ -9,35 +9,36 @@ app.use(cors());
 app.use(express.json());
 
 
-const { MongoClient } = require('mongodb');
+const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = process.env.MONGO_URL; // Replace with your MongoDB connection string
 const dbName = process.env.DB_NAME; // Replace with your database name
 const clName= "note-app-clc";
 
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-client.connect(err => {
-  if (err) {
-    console.error('Error connecting to MongoDB Atlas:', err);
-    return;
+
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
   }
-
-  // Perform operations on the connected cluster
-  const collection = client.db(dbName).collection(clName);
-
-  // Example: Insert a document
-  collection.insertOne({ name: 'John Doe', age: 30 }, (err, result) => {
-    if (err) {
-      console.error('Error inserting document:', err);
-      return;
-    }
-
-    console.log('Document inserted:', result.insertedCount);
-
-    // Close the connection
-    client.close();
-  });
 });
+
+async function run() {
+  try {
+    // Connect the client to the server	(optional starting in v4.7)
+    await client.connect();
+    // Send a ping to confirm a successful connection
+    await client.db(dbName).command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
+  }
+}
+run().catch(console.dir);
+
 
 
 // const connection = mysql.createConnection({
