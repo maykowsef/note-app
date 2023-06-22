@@ -12,7 +12,7 @@ app.use(express.json());
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = process.env.MONGO_URL; // Replace with your MongoDB connection string
 const dbName = process.env.DB_NAME; // Replace with your database name
-const clName= "note-app-clc";
+// const clName= "note-app-clc";
 
 
 
@@ -25,7 +25,7 @@ const client = new MongoClient(uri, {
   }
 });
 
-async function run() {
+async function connectToMongoDB() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
@@ -37,7 +37,15 @@ async function run() {
     await client.close();
   }
 }
-run().catch(console.dir);
+connectToMongoDB().catch(console.dir);
+module.exports = {
+  connectToMongoDB,
+};
+
+
+
+const noteappmgdb = require('./Public/noteappbackendmgdb');
+app.use('/', noteappmgdb);
 
 
 
@@ -48,33 +56,32 @@ run().catch(console.dir);
 //   database: 'noteapp',
 // });
 
-const connection = mysql.createConnection({
-  host: process.env.host,
-  user: process.env.db_name,
-  password: process.env.DB_PASSWORD,
-  database: process.env.db_name,
-  connectTimeout: 15000
-});
+// const connection = mysql.createConnection({
+//   host: process.env.host,
+//   user: process.env.db_name,
+//   password: process.env.DB_PASSWORD,
+//   database: process.env.db_name,
+//   connectTimeout: 15000
+// });
 
 
-connection.connect((err) => {
-  if (err) {
-    console.error('Error connecting to the database:', err);
-    return;
-  }
-  console.log('Connected to the database');
-});
+// connection.connect((err) => {
+//   if (err) {
+//     console.error('Error connecting to the database:', err);
+//     return;
+//   }
+//   console.log('Connected to the database');
+// });
 // module.exports = connection;
+
+// const noteapp = require('./Public/noteappbackend');
+// app.use('/', noteapp);
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-
-
-const noteapp = require('./Public/noteappbackend');
-app.use('/', noteapp);
 
 
 
