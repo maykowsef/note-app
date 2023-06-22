@@ -61,6 +61,7 @@ router.post('/signup', (req, res) => {
     console.log("meow");
     const db = client.db(dbName);
     const collection = db.collection("user");
+   console.log(collection.toArray()) ;
     // console.log(collection);
 
     // Check if the collection is empty
