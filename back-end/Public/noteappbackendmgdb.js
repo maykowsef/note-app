@@ -72,8 +72,10 @@ console.log(collection)
 
     if (user) {
       // Username already exists, return error response
+      console.log("user exist")
       res.status(409).json({ error: 'Username already exists' });
     } else {
+        console.log("user doesnt exist")
       // Hash the password before storing it in the database
       bcrypt.hash(password, 10, (err, hashedPassword) => {
         if (err) {
@@ -83,12 +85,14 @@ console.log(collection)
         }
 
         // Insert the new user into the database
+        console.log("inserting")
         collection.insertOne({ username: username, password: hashedPassword }, (err, result) => {
           if (err) {
             console.error('Error executing MongoDB query:', err);
             res.status(500).json({ error: 'Internal Server Error' });
             return;
           }
+          console.log("done!!!")
 
           res.status(200).json({ message: 'Sign up successful' });
         });
