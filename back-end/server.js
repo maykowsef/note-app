@@ -25,7 +25,7 @@ MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (e
   const db = client.db(dbName);
   module.exports = db;
 
-  app.listen(3001, () => {
+  app.listen(3003, () => {
     console.log('Example app listening on port 3001');
   });
 });
