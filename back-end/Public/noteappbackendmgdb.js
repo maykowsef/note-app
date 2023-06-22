@@ -57,51 +57,84 @@ router.post('/login', (req, res) => {
 
 // Sign-up route
 router.post('/signup', (req, res) => {
-  const { username, password } = req.body;
-console.log("meow")
-  const db= client.db(dbName);
+    const { username, password } = req.body;
+    console.log("meow");
+    const db = client.db(dbName);
+    const collection = db.collection('user');
+    console.log(collection);
 
-  const collection = db.collection('user');
-console.log(collection)
-  collection.findOne({ username: username }, (err, user) => {
-    console.log("execitooong")
-    if (err) {
-      console.error('Error executing MongoDB query:', err);
-      console.log("error executing mongodb quertrtrtt")
-      res.status(500).json({ error: 'Internal Server Error' });
-      return;
-    }
+    // Check if the collection is empty
+    collection.countDocuments({}, (err, count) => {
+      if (err) {
+        console.error('Error executing MongoDB query:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+        return;
+      }
 
-    if (user) {
-      // Username already exists, return error response
-      console.log("user exist")
-      res.status(409).json({ error: 'Username already exists' });
-    } else {
-        console.log("user doesnt exist")
-      // Hash the password before storing it in the database
-      bcrypt.hash(password, 10, (err, hashedPassword) => {
-        if (err) {
-          console.error('Error hashing password:', err);
-          res.status(500).json({ error: 'Internal Server Error' });
-          return;
-        }
+      if (count === 0) {
+        // Collection is empty, insert the new user directly
+        console.log("user doesnt exist");
+        bcrypt.hash(password, 10, (err, hashedPassword) => {
+          if (err) {
+            console.error('Error hashing password:', err);
+            res.status(500).json({ error: 'Internal Server Error' });
+            return;
+          }
 
-        // Insert the new user into the database
-        console.log("inserting")
-        collection.insertOne({ username: username, password: hashedPassword }, (err, result) => {
+          collection.insertOne({ username: username, password: hashedPassword }, (err, result) => {
+            if (err) {
+              console.error('Error executing MongoDB query:', err);
+              res.status(500).json({ error: 'Internal Server Error' });
+              return;
+            }
+            console.log("done!!!");
+
+            res.status(200).json({ message: 'Sign up successful' });
+          });
+        });
+      } else {
+        // Collection is not empty, check if the username already exists
+        collection.findOne({ username: username }, (err, user) => {
+          console.log("execitooong");
           if (err) {
             console.error('Error executing MongoDB query:', err);
             res.status(500).json({ error: 'Internal Server Error' });
             return;
           }
-          console.log("done!!!")
 
-          res.status(200).json({ message: 'Sign up successful' });
+          if (user) {
+            // Username already exists, return error response
+            console.log("user exist");
+            res.status(409).json({ error: 'Username already exists' });
+          } else {
+            // Hash the password before storing it in the database
+            console.log("user doesnt exist");
+            bcrypt.hash(password, 10, (err, hashedPassword) => {
+              if (err) {
+                console.error('Error hashing password:', err);
+                res.status(500).json({ error: 'Internal Server Error' });
+                return;
+              }
+
+              // Insert the new user into the database
+              console.log("inserting");
+              collection.insertOne({ username: username, password: hashedPassword }, (err, result) => {
+                if (err) {
+                  console.error('Error executing MongoDB query:', err);
+                  res.status(500).json({ error: 'Internal Server Error' });
+                  return;
+                }
+                console.log("done!!!");
+
+                res.status(200).json({ message: 'Sign up successful' });
+              });
+            });
+          }
         });
-      });
-    }
+      }
+    });
   });
-});
+
 
 function verifyToken(req, res, next) {
   const token = req.headers.authorization;
