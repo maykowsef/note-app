@@ -62,7 +62,7 @@ router.post('/signup', (req, res) => {
     const db = client.db(dbName);
     const collection = db.collection('user');
     // console.log(collection);
-    collection.insert({hello:'world_no_safe'});
+
     // Check if the collection is empty
     collection.findOne({}, (err, firstDocument) => {
         if (err) {
