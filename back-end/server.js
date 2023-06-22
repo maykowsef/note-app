@@ -13,6 +13,8 @@ const { MongoClient } = require('mongodb');
 const url = process.env.MONGO_URL; // Replace with your MongoDB connection string
 const dbName = process.env.DB_NAME; // Replace with your database name
 
+console.log(url)
+console.log(dbName)
 MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
   if (err) {
     console.error('Error connecting to the database:', err);
