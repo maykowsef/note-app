@@ -8,8 +8,7 @@ const crypto = require('crypto');
 
 // Secret key used for signing and verifying tokens
 const secretKey = process.env.secret_key;
-const IV_LENGTH = 16;
-const IV = "0f6e4df078496553"
+const IV = process.env.IV;
 const algorithm = process.env.algorithm;
 const encryptionKey = process.env.ENCRYPTION_KEY;
 
