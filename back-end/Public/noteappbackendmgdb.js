@@ -64,15 +64,14 @@ router.post('/signup', (req, res) => {
     // console.log(collection);
 
     // Check if the collection is empty
-    collection.countDocuments({}, (err, count) => {
-        console.log("counting")
-      if (err) {
-        console.error('Error executing MongoDB query:', err);
-        res.status(500).json({ error: 'Internal Server Error' });
-        return;
-      }
-      console.log(count)
-      if (count === 0) {
+    collection.findOne({}, (err, firstDocument) => {
+        if (err) {
+          console.error('Error executing MongoDB query:', err);
+          res.status(500).json({ error: 'Internal Server Error' });
+          return;
+        }
+
+        if (!firstDocument) {
         // Collection is empty, insert the new user directly
         console.log("user doesnt exist");
         bcrypt.hash(password, 10, (err, hashedPassword) => {
