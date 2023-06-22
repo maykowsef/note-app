@@ -10,26 +10,33 @@ app.use(express.json());
 
 
 const { MongoClient } = require('mongodb');
-const url = process.env.MONGO_URL; // Replace with your MongoDB connection string
+const uri = process.env.MONGO_URL; // Replace with your MongoDB connection string
 const dbName = process.env.DB_NAME; // Replace with your database name
 
-console.log(url)
-console.log(dbName)
-MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
-  if (err) {
-    console.error('Error connecting to the database:', err);
-    return;
-  }
-  console.log('Connected to MongoDB');
-
-  const db = client.db(dbName);
-  module.exports = db;
-
-  app.listen(3003, () => {
-    console.log('Example app listening on port 3001');
+async function connectToMongoDB() {
+  const client = new MongoClient(uri, {
+    serverApi: {
+      version: ServerApiVersion.v1,
+      strict: true,
+      deprecationErrors: true,
+    },
   });
-});
 
+  try {
+    await client.connect();
+    const db = client.db(dbName);
+    module.exports = db;
+    console.log('Connected to MongoDB');
+
+    app.listen(3002, () => {
+      console.log('Example app listening on port 3001');
+    });
+  } catch (error) {
+    console.error('Error connecting to the database:', error);
+  }
+}
+
+connectToMongoDB();
 
 // const connection = mysql.createConnection({
 //   host: 'localhost',
@@ -54,7 +61,7 @@ connection.connect((err) => {
   }
   console.log('Connected to the database');
 });
-module.exports = connection;
+// module.exports = connection;
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
