@@ -60,7 +60,7 @@ router.post('/signup', (req, res) => {
     const { username, password } = req.body;
     console.log("meow");
     const db = client.db(dbName);
-    const collection = db.collection('user');
+    const collection = db.collection("user");
     // console.log(collection);
 
     // Check if the collection is empty

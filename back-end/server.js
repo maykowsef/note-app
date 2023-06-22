@@ -14,7 +14,10 @@ const uri = process.env.MONGO_URL; // Replace with your MongoDB connection strin
 const dbName = process.env.DB_NAME; // Replace with your database name
 // const clName= "note-app-clc";
 
-
+// zOhmxgIUBCUXDmYR9YXKoSVweJr9ar6hPg7ub7wDYndKmjOop6dobMbKjNmqYAAr
+// https://data.mongodb-api.com/app/data-hmjxa/endpoint/data/v1
+// apikey
+// 649454b2b335d31cdf7a7f0d
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
