@@ -2,8 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const client = require('../server');
-const dbName = require('../server');
+const { client, dbName } = require('../server');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -21,7 +20,7 @@ router.post('/login', (req, res) => {
   const { username, password } = req.body;
 
   // Check if the user exists in the database
-  const collection = client.db(dbName).collection('user');
+  const collection = client.db(dbName).db().collection('user');
   collection.findOne({ username: username }, (err, user) => {
     if (err) {
       console.error('Error executing MongoDB query:', err);
@@ -58,7 +57,7 @@ router.post('/login', (req, res) => {
 router.post('/signup', (req, res) => {
   const { username, password } = req.body;
 
-  const collection = client.db(dbName).collection('user');
+  const collection = client.db(dbName).db().collection('user');
   collection.findOne({ username: username }, (err, user) => {
     if (err) {
       console.error('Error executing MongoDB query:', err);
@@ -118,7 +117,7 @@ router.get('/protected', verifyToken, (req, res) => {
 router.get('/notes/:user_id', (req, res) => {
   const userId = req.params.user_id;
 
-  const collection = client.db(dbName).collection('note');
+  const collection = client.db(dbName).db().collection('note');
   collection.find({ user_id: userId }).sort({ modified_at: -1 }).toArray((err, results) => {
     if (err) {
       console.error('Error executing MongoDB query:', err);
@@ -146,7 +145,7 @@ router.post('/notes/:user_id', (req, res) => {
   let encryptedContent = cipher.update(content, 'utf8', 'hex');
   encryptedContent += cipher.final('hex');
 
-  const collection = client.db(dbName).collection('note');
+  const collection = client.db(dbName).db().collection('note');
   collection.insertOne(
     { title: title, content: encryptedContent, user_id: userId, modified_at: new Date() },
     (err, result) => {
@@ -170,7 +169,7 @@ router.put('/notes/:note_id/:user_id', (req, res) => {
   let encryptedContent = cipher.update(content, 'utf8', 'hex');
   encryptedContent += cipher.final('hex');
 
-  const collection = client.db(dbName).collection('note');
+  const collection = client.db(dbName).db().collection('note');
   collection.updateOne(
     { note_id: noteId, user_id: userId },
     { $set: { title: title, content: encryptedContent, modified_at: new Date() } },
@@ -195,7 +194,7 @@ router.delete('/notes/:note_id/:user_id', (req, res) => {
   const noteId = req.params.note_id;
   const userId = req.params.user_id;
 
-  const collection = client.db(dbName).collection('note');
+  const collection = client.db(dbName).db().collection('note');
   collection.deleteOne({ note_id: noteId, user_id: userId }, (err, result) => {
     if (err) {
       console.error('Error executing MongoDB query:', err);
