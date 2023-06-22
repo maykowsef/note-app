@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const connectToMongoDB = require('../server');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
