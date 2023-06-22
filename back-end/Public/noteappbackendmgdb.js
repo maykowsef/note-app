@@ -56,9 +56,11 @@ router.post('/login', (req, res) => {
 // Sign-up route
 router.post('/signup', (req, res) => {
   const { username, password } = req.body;
-
+console.log("meow")
   const db= client.db(dbName);
+  console.log(db)
   const collection = db.collection('user');
+  console.log(collection)
   collection.findOne({ username: username }, (err, user) => {
     if (err) {
       console.error('Error executing MongoDB query:', err);
