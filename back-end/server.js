@@ -15,11 +15,8 @@ const dbName = process.env.DB_NAME; // Replace with your database name
 
 async function connectToMongoDB() {
   const client = new MongoClient(uri, {
-    serverApi: {
-      version: ServerApiVersion.v1,
-      strict: true,
-      deprecationErrors: true,
-    },
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
   });
 
   try {
