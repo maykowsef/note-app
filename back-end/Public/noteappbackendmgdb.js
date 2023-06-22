@@ -64,8 +64,10 @@ console.log("meow")
   const collection = db.collection('user');
 console.log(collection)
   collection.findOne({ username: username }, (err, user) => {
+    console.log("execitooong")
     if (err) {
       console.error('Error executing MongoDB query:', err);
+      console.log("error executing mongodb quertrtrtt")
       res.status(500).json({ error: 'Internal Server Error' });
       return;
     }
