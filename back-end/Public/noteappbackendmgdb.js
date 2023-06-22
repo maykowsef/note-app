@@ -20,7 +20,9 @@ router.post('/login', (req, res) => {
   const { username, password } = req.body;
 
   // Check if the user exists in the database
-  const collection = client.db(dbName).db().collection('user');
+  const db= client.db(dbName);
+  console.log(db)
+  const collection = db.collection('user');
   collection.findOne({ username: username }, (err, user) => {
     if (err) {
       console.error('Error executing MongoDB query:', err);
