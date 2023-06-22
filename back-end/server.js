@@ -39,7 +39,7 @@ async function connectToMongoDB() {
 }
 connectToMongoDB().catch(console.dir);
 module.exports = {
-  client,
+  client,dbName
 };
 
 
