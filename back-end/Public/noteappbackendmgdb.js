@@ -61,16 +61,17 @@ router.post('/signup', (req, res) => {
     console.log("meow");
     const db = client.db(dbName);
     const collection = db.collection('user');
-    console.log(collection);
+    // console.log(collection);
 
     // Check if the collection is empty
     collection.countDocuments({}, (err, count) => {
+        console.log("counting")
       if (err) {
         console.error('Error executing MongoDB query:', err);
         res.status(500).json({ error: 'Internal Server Error' });
         return;
       }
-
+      console.log(count)
       if (count === 0) {
         // Collection is empty, insert the new user directly
         console.log("user doesnt exist");
